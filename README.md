@@ -24,4 +24,3 @@ Each project is a beacon: a story of challenges, of ingenuity, and of the relent
 Cosmic-Escape is **not just a portfolio** — it is a map of a technologist’s journey, a playground for curiosity, and an invitation to explore, learn, and be inspired.  
 
 > Every repository, every commit, every line of code is a step forward. Explore, witness the evolution, and perhaps find your own spark of inspiration along the way.
->>>>>>> a62bd8234a567db451607f79339f26a6836e8eb5
