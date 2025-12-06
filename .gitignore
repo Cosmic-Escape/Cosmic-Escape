@@ -1,0 +1,181 @@
+# ============================================================================
+# .gitignore for CosmicEscape
+# ============================================================================
+
+# Dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+.pnpm-debug.log
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Testing
+playwright-report/
+test-results/
+.playwright/
+
+# Vercel
+.vercel/
+
+# Misc
+*.log
+*.pem
+*.key
+.cache/
+.turbo/
+
+# OS
+Thumbs.db
+.AppleDouble
+
+# Docker
+.docker
+
+# Optional npm cache directory
+.npm
+
+# Local history for Visual Studio Code
+.history
+
+# ============================================================================
+# COMPLETE FILE STRUCTURE
+# ============================================================================
+#
+# cosmic-escape/
+# │
+# ├── app/
+# │   ├── layout.tsx                    (Root layout with providers)
+# │   ├── globals.css                   (Global styles)
+# │   ├── page.tsx                      (Home page)
+# │   ├── api/
+# │   │   └── contact/
+# │   │       └── route.ts              (Contact API)
+# │   ├── projects/
+# │   │   ├── page.tsx                  (Projects list)
+# │   │   └── [slug]/
+# │   │       └── page.tsx              (Project detail)
+# │   ├── blog/
+# │   │   ├── page.tsx                  (Blog list)
+# │   │   └── [slug]/
+# │   │       └── page.tsx              (Blog post)
+# │   ├── contact/
+# │   │   └── page.tsx                  (Contact page)
+# │   └── experiments/
+# │       └── page.tsx                  (Interactive demos)
+# │
+# ├── components/
+# │   ├── ui/
+# │   │   ├── PageTransition.tsx
+# │   │   ├── CommandPanel.tsx
+# │   │   ├── HoloSectionHeader.tsx
+# │   │   ├── TechCard.tsx
+# │   │   ├── KPIRow.tsx
+# │   │   ├── Modal.tsx
+# │   │   └── Button.tsx
+# │   ├── providers/
+# │   │   ├── AppProviders.tsx
+# │   │   ├── ThemeProvider.tsx
+# │   │   └── MotionProvider.tsx
+# │   ├── Navbar.tsx
+# │   ├── Footer.tsx
+# │   ├── DarkToggle.tsx
+# │   ├── ShaderBackground.tsx
+# │   ├── NeuralNetworkBackground.tsx
+# │   ├── MaskedHero.tsx
+# │   ├── ProjectsGrid.tsx
+# │   └── PageLayout.tsx
+# │
+# ├── lib/
+# │   ├── types.ts                      (TypeScript interfaces)
+# │   ├── projects.ts                   (Project data)
+# │   ├── utils.ts                      (Utility functions)
+# │   └── validation.ts                 (Zod schemas)
+# │
+# ├── public/
+# │   ├── images/
+# │   │   ├── project-1.jpg
+# │   │   ├── project-2.jpg
+# │   │   ├── project-3.jpg
+# │   │   ├── project-4.jpg
+# │   │   └── avatar.png
+# │   └── favicon.ico
+# │
+# ├── __tests__/
+# │   ├── unit/
+# │   │   ├── utils.test.ts
+# │   │   └── components.test.ts
+# │   └── e2e/
+# │       └── [Playwright tests]
+# │
+# ├── e2e/
+# │   ├── navigation.spec.ts
+# │   ├── contact.spec.ts
+# │   ├── accessibility.spec.ts
+# │   └── responsive.spec.ts
+# │
+# ├── .github/
+# │   └── workflows/
+# │       └── ci.yml                    (GitHub Actions)
+# │
+# ├── Configuration Files
+# │   ├── next.config.js
+# │   ├── tailwind.config.ts
+# │   ├── postcss.config.js
+# │   ├── tsconfig.json
+# │   ├── eslint.config.json            (.eslintrc.json)
+# │   ├── prettier.config.json          (.prettierrc.json)
+# │   ├── jest.config.js
+# │   ├── jest.setup.js
+# │   └── playwright.config.ts
+# │
+# ├── Docker & Deployment
+# │   ├── Dockerfile
+# │   ├── .dockerignore
+# │   ├── docker-compose.yml            (Optional)
+# │   └── .env.example
+# │
+# ├── Git & Package Management
+# │   ├── .gitignore                    (This file)
+# │   ├── .prettierignore
+# │   ├── package.json
+# │   ├── package-lock.json
+# │   └── .gitattributes
+# │
+# ├── Documentation
+# │   ├── README.md                     (Getting started)
+# │   ├── ARCHITECTURE.md               (Technical design)
+# │   ├── DEPLOYMENT.md                 (Deployment guide)
+# │   ├── PULL_REQUEST_TEMPLATE.md
+# │   └── DELIVERY_SUMMARY.md
+# │
+# └── Optional Husky Git Hooks
+#     └── .husky/
+#         ├── pre-commit               (Run lint & format)
+#         └── pre-push                 (Run tests)
+#
+# ============================================================================
