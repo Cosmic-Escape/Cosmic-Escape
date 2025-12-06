@@ -17,21 +17,23 @@ export default function ShaderBackground({
   const rafRef = useRef<number>();
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const gl = canvas.getContext('webgl');
-    if (!gl) {
-      console.warn('WebGL not supported, using CSS fallback');
-      canvas.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
+    const gl = canvasRef.current?.getContext('webgl');
+    if (!gl || !canvasRef.current) {
+      // Fallback: CSS gradient
+      if (canvasRef.current) {
+        canvasRef.current.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
+      }
       return;
     }
 
     function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gl.viewport(0, 0, canvas.width, canvas.height);
+      const c = canvasRef.current;
+      if (!c) return;
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+      gl.viewport(0, 0, c.width, c.height);
     }
+
     resizeCanvas();
 
     const vertexShaderSource = `
@@ -71,7 +73,6 @@ export default function ShaderBackground({
 
         float n = noise(st + time * 0.1);
         float n2 = noise(st * 2.0 - time * 0.05);
-
         float pattern = n * n2;
         pattern = sin(pattern * 3.14159 + time) * 0.5 + 0.5;
 
@@ -100,7 +101,6 @@ export default function ShaderBackground({
 
     const program = gl.createProgram();
     if (!program) throw new Error('Failed to create WebGL program');
-
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);
@@ -137,12 +137,15 @@ export default function ShaderBackground({
     const startTime = Date.now();
 
     function render() {
+      const c = canvasRef.current;
+      if (!c) return;
+
       const elapsed = (Date.now() - startTime) / 1000;
 
       gl.uniform1f(timeLocation, elapsed);
       gl.uniform1f(intensityLocation, intensity);
       gl.uniform1f(scaleLocation, scale);
-      gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+      gl.uniform2f(resolutionLocation, c.width, c.height);
       gl.uniform3f(color1Location, r1, g1, b1);
       gl.uniform3f(color2Location, r2, g2, b2);
 
