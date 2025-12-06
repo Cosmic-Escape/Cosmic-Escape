@@ -1,6 +1,11 @@
 import HoloSectionHeader from "@/components/ui/HoloSectionHeader";
 
-export default function AutoHeader({ title, subtitle }) {
+interface AutoHeaderProps {
+  title: string;
+  subtitle?: string; // optional if subtitle may not exist
+}
+
+export default function AutoHeader({ title, subtitle }: AutoHeaderProps) {
   return (
     <div className="pt-12">
       <HoloSectionHeader title={title} subtitle={subtitle} />

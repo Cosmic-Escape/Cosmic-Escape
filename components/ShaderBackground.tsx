@@ -17,23 +17,22 @@ export default function ShaderBackground({
   const rafRef = useRef<number>();
 
   useEffect(() => {
-    const gl = canvasRef.current?.getContext('webgl');
-    if (!gl || !canvasRef.current) {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const gl = canvas.getContext('webgl');
+    if (!gl) {
       // Fallback: CSS gradient
-      if (canvasRef.current) {
-        canvasRef.current.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
-      }
+      canvas.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)';
       return;
     }
 
-    function resizeCanvas() {
-      const c = canvasRef.current;
-      if (!c) return;
-      c.width = window.innerWidth;
-      c.height = window.innerHeight;
-      gl.viewport(0, 0, c.width, c.height);
-    }
-
+    const resizeCanvas = () => {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    };
     resizeCanvas();
 
     const vertexShaderSource = `
@@ -83,7 +82,7 @@ export default function ShaderBackground({
       }
     `;
 
-    function compileShader(source: string, type: number): WebGLShader {
+    const compileShader = (source: string, type: number): WebGLShader => {
       const shader = gl.createShader(type);
       if (!shader) throw new Error('Unable to create shader');
       gl.shaderSource(shader, source);
@@ -94,7 +93,7 @@ export default function ShaderBackground({
         throw new Error('Shader compile failed: ' + info);
       }
       return shader;
-    }
+    };
 
     const vertexShader = compileShader(vertexShaderSource, gl.VERTEX_SHADER);
     const fragmentShader = compileShader(fragmentShaderSource, gl.FRAGMENT_SHADER);
@@ -136,22 +135,20 @@ export default function ShaderBackground({
 
     const startTime = Date.now();
 
-    function render() {
-      const c = canvasRef.current;
-      if (!c) return;
-
+    const render = () => {
+      if (!canvas) return;
       const elapsed = (Date.now() - startTime) / 1000;
 
       gl.uniform1f(timeLocation, elapsed);
       gl.uniform1f(intensityLocation, intensity);
       gl.uniform1f(scaleLocation, scale);
-      gl.uniform2f(resolutionLocation, c.width, c.height);
+      gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
       gl.uniform3f(color1Location, r1, g1, b1);
       gl.uniform3f(color2Location, r2, g2, b2);
 
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       rafRef.current = requestAnimationFrame(render);
-    }
+    };
 
     rafRef.current = requestAnimationFrame(render);
     window.addEventListener('resize', resizeCanvas);

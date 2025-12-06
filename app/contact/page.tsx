@@ -11,8 +11,14 @@ export default function ContactPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus('sending');
-    const form = new FormData(e.target as HTMLFormElement);
-    const payload = Object.fromEntries(form.entries());
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form) as unknown as FormData & {
+  entries(): Iterable<[string, FormDataEntryValue]>;
+};
+    const payload = Object.fromEntries(formData.entries());
+
+
+
 
     try {
       const res = await fetch('/api/contact', {
